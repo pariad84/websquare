@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ev="http://www.w3.org/2001/xml-events"
+xmlns:w2="http://www.inswave.com/websquare"
+xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_screenName="grid">
+		<w2:type>COMMON</w2:type>
+		<w2:buildDate/>
+		<w2:MSA/>
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+		</xf:model>
+		<w2:mfeSubmission>
+		</w2:mfeSubmission>
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+		<w2:publicInfo method="scwin.count,scwin.clear,scwin.getAllData,scwin.setAllData,scwin.getRowData,scwin.setRowData,scwin.getCellData,scwin.setCellData,scwin.insertRow,scwin.deleteRow,scwin.removeRow"/>
+		<script type="text/javascript" lazy="false"><![CDATA[
+/**
+ * @component
+ * @componentName udc_grid
+ * @pluginName
+ * @company
+ * @developer
+ * @category /cm/gcc
+ * @notSupportBrowser
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+scwin.onpageload = function() {
+	
+};
+
+/**
+ * @method
+ * @name count
+ * @description count
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.count = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    const dl = opt.grid.dataList;
+    return dl.getRowCount();
+};
+
+/**
+ * @method
+ * @name clear
+ * @description clear
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.clear = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    const dl = opt.grid.dataList;
+    return dl.removeAll();
+};
+
+/**
+ * @method
+ * @name getAllData
+ * @description getAllData
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.getAllData = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    const dl = opt.grid.dataList;
+    return dl.getAllJSON();
+};
+
+/**
+ * @method
+ * @name setAllData
+ * @description setAllData
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.setAllData = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.data = opt.data || [];
+    const dl = opt.grid.dataList;
+    return dl.setJSON(opt.data);
+};
+
+/**
+ * @method
+ * @name getRowData
+ * @description getRowData
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.getRowData = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || 0;
+    const dl = opt.grid.dataList;
+    return dl.getRowJSON(opt.rowIndex);
+};
+
+/**
+ * @method
+ * @name setRowData
+ * @description setRowData
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.setRowData = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || 0;
+    for(const key in opt.data){
+        $c.grid.setCellData({grid : opt.grid, rowIndex : opt.rowIndex, colIndex : key, value : opt.data[key]});
+    }
+};
+
+/**
+ * @method
+ * @name getCellData
+ * @description getCellData
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.getCellData = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || 0;
+    opt.colIndex = opt.colIndex || 0;
+    const dl = opt.grid.dataList;
+    return dl.getCellData(opt.rowIndex, opt.colIndex);
+};
+
+/**
+ * @method
+ * @name setCellData
+ * @description setCellData
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.setCellData = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || 0;
+    opt.colIndex = opt.colIndex || 0;
+    const dl = opt.grid.dataList;
+    return dl.setCellData(opt.rowIndex, opt.colIndex, opt.value);
+};
+
+/**
+ * @method
+ * @name insertRow
+ * @description insertRow
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.insertRow = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || $c.grid.count({grid : opt.grid});
+    const dl = opt.grid.dataList;
+    return dl.insertRow(opt.rowIndex);
+};
+
+/**
+ * @method
+ * @name deleteRow
+ * @description deleteRow
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.deleteRow = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || 0;
+    const dl = opt.grid.dataList;
+    return dl.deleteRow(opt.rowIndex);
+};
+
+/**
+ * @method
+ * @name removeRow
+ * @description removeRow
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.removeRow = function (opt = {}) {
+	opt.grid = opt.grid || mf_grd_main;
+    opt.rowIndex = opt.rowIndex || 0;
+    const dl = opt.grid.dataList;
+    return dl.removeRow(opt.rowIndex);
+};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+	</body>
+</html>
