@@ -35,7 +35,7 @@ scwin.onpageload = function() {
  * @example
  */
 scwin.get = function (id) {
-	return $w.getComponentById(id)
+	return $p.getComponentById(id)
 };
 
 /**
@@ -52,7 +52,7 @@ scwin.get = function (id) {
 scwin.create = async function (opt = {}) {
 	opt.id = opt.id || opt.type+"_"+Math.floor(Math.random()*10000);
     opt.attr = opt.attr || {};
-    opt.parent = opt.parent || $c.comp.get("mf_wq_uuid_5");
+    opt.parent = opt.parent || $c.comp.get("mf_wq_uuid_3");
     opt.itemSet = opt.itemSet || {};
     opt.css = opt.css || {};
     opt.classes = opt.classes || [];
@@ -77,11 +77,11 @@ scwin.create = async function (opt = {}) {
     }else if(opt.type == "td"){
         tag = "group";
     }
-    if ($w.getComponentById(opt.id)) {
+    if ($p.getComponentById(opt.id)) {
         throw new Error("[comp.create] 이미 존재하는 ID: " + opt.id);
     }
-    await $w.dynamicCreate(opt.id, tag, opt.attr, opt.parent, opt.itemSet);
-    const comp = $w.getComponentById(opt.id);
+    await $p.dynamicCreate(opt.id, tag, opt.attr, opt.parent, opt.itemSet);
+    const comp = $p.getComponentById(opt.id);
     const el = comp.render;
     if(opt.type == "trigger"){
         comp.setValue(opt.text);
@@ -113,8 +113,8 @@ scwin.create = async function (opt = {}) {
             ...opt.css,
         };
         const interval = setInterval(function(){
-            if($w.getComponentById(comp.id+"_itemTable")){
-                $w.getComponentById(comp.id+"_itemTable").setStyle({zIndex : 10000});
+            if($p.getComponentById(comp.id+"_itemTable")){
+                $p.getComponentById(comp.id+"_itemTable").setStyle({zIndex : 10000});
                 clearInterval(interval);
             }
         }, 500);
@@ -174,8 +174,8 @@ scwin.createPopup = async function (opt = {}) {
             minWidth : "200px",
 			minHeight : "200px",
 			position : "absolute",
-			top : "50px",
-			left : "50px",
+			bottom : "0px",
+			right : "0px",
 			backgroundColor : "#ffe8a3",
         },
     });
