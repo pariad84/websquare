@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ev="http://www.w3.org/2001/xml-events"
+xmlns:w2="http://www.inswave.com/websquare"
+xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_screenName="cmm">
+		<w2:type>COMMON</w2:type>
+		<w2:buildDate/>
+		<w2:MSA/>
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+		</xf:model>
+		<w2:mfeSubmission>
+		</w2:mfeSubmission>
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+		<w2:publicInfo method="scwin.includes,scwin.getLocalStorage,scwin.setLocalStorage,scwin.removeLocalStorage,scwin.readLocalStorage,scwin.writeLocalStorage,scwin.selectLocalStorage,scwin.insertLocalStorage,scwin.updateLocalStorage,scwin.deleteLocalStorage"/>
+		<script type="text/javascript" lazy="false"><![CDATA[
+/**
+ * @component
+ * @componentName udc_cmm
+ * @pluginName
+ * @company
+ * @developer
+ * @category /cm/gcc
+ * @notSupportBrowser
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+scwin.onpageload = function() {
+
+    window.addEventListener('keydown', async (event) => {
+        if (event.altKey && event.key === '1') {
+            
+            const popup = await $c.comp.createPopup({
+                draw : async function(opt){
+                    var row = await $c.comp.create({
+                        parent : opt.body,
+                        type : "group",
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "insertRow",
+						click : function(){
+							$c.grid.insertRow();
+						},
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "deleteRow",
+						click : function(){
+							$c.grid.deleteRow();
+						},
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "removeRow",
+						click : function(){
+							$c.grid.removeRow();
+						},
+                    });
+                    var row = await $c.comp.create({
+                        parent : opt.body,
+                        type : "group",
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "setCellData",
+						click : function(){
+							$c.grid.setCellData({value : 0});
+						},
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "getCellData",
+						click : function(){
+                            console.log("getCellData", $c.grid.getCellData());
+						},
+                    });
+                    var row = await $c.comp.create({
+                        parent : opt.body,
+                        type : "group",
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "setRowData",
+						click : function(){
+							$c.grid.setRowData({data : {PARENT_SAMPLE_CD : 1, SAMPLE_LEVEL : 2}});
+						},
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "getRowData",
+						click : function(){
+							console.log("getRowData", $c.grid.getRowData());
+						},
+                    });
+                    var row = await $c.comp.create({
+                        parent : opt.body,
+                        type : "group",
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "insertLocalStorage",
+						click : function(){
+							$c.cmm.insertLocalStorage({key : "test", data : {a : 1}});
+                            console.log("insertLocalStorage", $c.cmm.selectLocalStorage({key : "test"}));
+						},
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "updateLocalStorage",
+						click : function(){
+							$c.cmm.updateLocalStorage({key : "test", data : {id : 1, a : 2}});
+                            console.log("updateLocalStorage", $c.cmm.selectLocalStorage({key : "test"}));
+						},
+                    });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "deleteLocalStorage",
+						click : function(){
+							$c.cmm.deleteLocalStorage({key : "test", data : {id : 1}});
+                            console.log("deleteLocalStorage", $c.cmm.selectLocalStorage({key : "test"}));
+						},
+                    });
+                    var row = await $c.comp.create({
+                        parent : opt.body,
+                        type : "group",
+                    });
+                },
+            });
+            
+
+        }
+    });
+	
+};
+
+/**
+ * @method
+ * @name includes
+ * @description includes
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.includes = function(opt = {}) {
+    return Object.entries(opt.source).every(([k, v]) => opt.target[k] === v);
+};
+
+/**
+ * @method
+ * @name getLocalStorage
+ * @description getLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.getLocalStorage = function(opt = {}) {
+    if (typeof(Storage) !== "undefined") {
+        return localStorage.getItem(opt.key);
+    }
+    return null;
+};
+
+/**
+ * @method
+ * @name setLocalStorage
+ * @description setLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.setLocalStorage = function(opt = {}) {
+    if (typeof(Storage) !== "undefined") {
+        localStorage.setItem(opt.key, opt.value);
+    }
+};
+
+/**
+ * @method
+ * @name removeLocalStorage
+ * @description removeLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.removeLocalStorage = function(opt = {}) {
+    if (typeof(Storage) !== "undefined") {
+        removeLocalStorageItem(opt.key);
+    }
+};
+
+/**
+ * @method
+ * @name readLocalStorage
+ * @description readLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.readLocalStorage = function(opt = {}) {
+    var raw = $c.cmm.getLocalStorage({ key : opt.key });
+    return raw ? JSON.parse(raw) : [];
+};
+
+/**
+ * @method
+ * @name writeLocalStorage
+ * @description writeLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.writeLocalStorage = function(opt = {}) {
+    $c.cmm.setLocalStorage({ key : opt.key, value : JSON.stringify(opt.rows) });
+};
+
+/**
+ * @method
+ * @name selectLocalStorage
+ * @description selectLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.selectLocalStorage = function(opt = {}) {
+    var rows = $c.cmm.readLocalStorage({ key : opt.key });
+    if (opt.data !== undefined) {
+        var row = rows.find(function(row) { return $c.cmm.includes({target : row, source : opt.data}); });
+        return row;
+    }
+    return rows;
+};
+
+/**
+ * @method
+ * @name insertLocalStorage
+ * @description insertLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.insertLocalStorage = function(opt = {}) {
+    var rows = $c.cmm.readLocalStorage({ key : opt.key });
+    var nextId = rows.reduce(function(max, row) { return Math.max(max, row.id); }, 0) + 1;
+    var row = {id : nextId, ...opt.data};
+    rows.push(row);
+    $c.cmm.writeLocalStorage({ key : opt.key, rows : rows });
+    return row;
+};
+
+/**
+ * @method
+ * @name updateLocalStorage
+ * @description updateLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.updateLocalStorage = function(opt = {}) {
+    var rows = $c.cmm.readLocalStorage({ key : opt.key });
+    var row = rows.find(function(r) { return r.id === opt.data.id; });
+    if (row) {
+        Object.assign(row, opt.data);
+        $c.cmm.writeLocalStorage({ key : opt.key, rows : rows });
+    }
+    return row;
+};
+
+/**
+ * @method
+ * @name deleteLocalStorage
+ * @description deleteLocalStorage
+ * @param {object} opt option
+ * @returns
+ * @hidden N
+ * @exception
+ * @migrationStatus
+ * @example
+ */
+scwin.deleteLocalStorage = function(opt = {}) {
+    var rows = $c.cmm.readLocalStorage({ key : opt.key });
+    var row = rows.find(function(row) { return row.id === opt.data.id; });
+    $c.cmm.writeLocalStorage({ key : opt.key, rows : rows.filter(function(row) { return row.id !== opt.data.id; }) });
+    return row;
+};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+	</body>
+</html>
