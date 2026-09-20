@@ -149,6 +149,31 @@ scwin.onpageload = function() {
                         parent : opt.body,
                         type : "group",
                     });
+                    await $c.comp.create({
+                        parent : row,
+                        type : "trigger",
+                        text : "deleteLocalStorage",
+						click : function(){
+							console.log(typeof $p, typeof $w);
+                            var sbm = $c.sbm.create({
+                                id : "sbm_search1",
+                                action : "/sample/searchSample",
+                                ref : "data:json,dma_search",
+                                target : "data:json,dlt_sample",
+                                submitDoneHandler : function(e){
+                                    console.log(e);
+                                },
+                            });
+                            console.log(sbm);
+						},
+                    });
+					
+                    
+                    
+                    console.log(typeof $p, typeof $w);
+                    console.log(typeof $p, typeof $w);
+                    
+                    
                 },
             });
             
